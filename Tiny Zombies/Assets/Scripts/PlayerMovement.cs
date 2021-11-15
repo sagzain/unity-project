@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MovementBehaviour : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed = 5.0f;
     [SerializeField] private Vector2 _movementInput;
