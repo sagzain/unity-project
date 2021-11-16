@@ -27,6 +27,6 @@ public class PlayerMovement : MonoBehaviour
         _movementInput = value.ReadValue<Vector2>();
 
         var moveAmount = Mathf.Clamp01(Mathf.Abs(_movementInput.x) + Mathf.Abs(_movementInput.y));
-        _animator.SetFloat("velocity", moveAmount);  
+        _animator.SetFloat("velocity", moveAmount);
     }
 }
