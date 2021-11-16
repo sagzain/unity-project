@@ -32,7 +32,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if(value.performed)
         {
-            Instantiate(_bulletPrefab, transform.position, transform.rotation);
+            Instantiate(_bulletPrefab, Vector3.up + transform.position, transform.rotation);
         }
     }
 }
