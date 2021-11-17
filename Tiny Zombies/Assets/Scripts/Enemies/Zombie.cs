@@ -57,8 +57,10 @@ public class Zombie : MonoBehaviour
 
         if(!_animator.GetBool("IsDead") && other.gameObject.tag == "Bullet")
         {
+            Vector3 position = transform.position;
+            Vector3 floor = new Vector3(position.x, 0.1f, position.z);
             _animator.SetBool("IsDead", true);
-            Instantiate(_blood, transform.position, _blood.transform.rotation);
+            Instantiate(_blood, floor, _blood.transform.rotation);
             StartCoroutine(Despawn());  
         }  
     }

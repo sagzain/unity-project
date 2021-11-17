@@ -15,19 +15,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Player.Instance.IsAlive)
-        {
-            var velocity = _movementSpeed * Time.deltaTime;
-            var horizontal = _movementInput.x * velocity;
-            var vertical = _movementInput.y * velocity;
+        var velocity = _movementSpeed * Time.deltaTime;
+        var horizontal = _movementInput.x * velocity;
+        var vertical = _movementInput.y * velocity;
 
-            transform.position += new Vector3(horizontal, 0, vertical);
-        }
+        transform.position += new Vector3(horizontal, 0, vertical);
     }
 
     public void OnMovement(InputAction.CallbackContext value)
     {
-        _movementInput = value.ReadValue<Vector2>();
+        _movementInput = Player.Instance.IsAlive ? value.ReadValue<Vector2>() : Vector2.zero;
 
         var moveAmount = Mathf.Clamp01(Mathf.Abs(_movementInput.x) + Mathf.Abs(_movementInput.y));
         _animator.SetFloat("velocity", moveAmount);

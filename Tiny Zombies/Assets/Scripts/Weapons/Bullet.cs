@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
+        //Coger el Health del enemigo y comprobar que está vivo para destruir la bala. En caso contrario la bala debe continuar su camino
         if(other.gameObject.tag == "Enemy")
         {
             Destroy(gameObject);
