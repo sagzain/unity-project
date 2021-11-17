@@ -22,8 +22,9 @@ public class PlayerShooting : MonoBehaviour
             
             if(Physics.Raycast(ray, out hit))
             {
-                Debug.DrawLine(ray.origin, hit.point, Color.red);
-                transform.LookAt(hit.point);
+                var target = hit.transform.tag == "Enemy" ? hit.transform.gameObject.transform.position : hit.point;
+                Debug.DrawLine(ray.origin, target, Color.red);
+                transform.LookAt(target);
             }
         }
     }
