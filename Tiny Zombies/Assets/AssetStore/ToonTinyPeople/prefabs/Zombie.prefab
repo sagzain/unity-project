@@ -143,7 +143,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!114 &7469398520976855832
 MonoBehaviour:
@@ -157,8 +157,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9ddcffdb2cd5274ba34a0b44344691c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 1
   _moveSpeed: 2
-  _timeToDestroy: 0.5
+  _blood: {fileID: 174533810872408216, guid: 5cfa98c8930b08e48884e2ffc400d4ff, type: 3}
+  _timeToDestroy: 2.25
+  _maxDistance: 10
+  _minDistance: 1.25
 --- !u!1 &856601670117699840
 GameObject:
   m_ObjectHideFlags: 0

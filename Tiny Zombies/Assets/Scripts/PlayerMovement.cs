@@ -15,11 +15,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        var velocity = _movementSpeed * Time.deltaTime;
-        var horizontal = _movementInput.x * velocity;
-        var vertical = _movementInput.y * velocity;
+        if (Player.Instance.IsAlive)
+        {
+            var velocity = _movementSpeed * Time.deltaTime;
+            var horizontal = _movementInput.x * velocity;
+            var vertical = _movementInput.y * velocity;
 
-        transform.position += new Vector3(horizontal, 0, vertical);
+            transform.position += new Vector3(horizontal, 0, vertical);
+        }
     }
 
     public void OnMovement(InputAction.CallbackContext value)

@@ -6,20 +6,18 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Vector3 _movementInput;
 
-    void Awake()
-    {
-        // Cursor.lockState = CursorLockMode.Confined;
-    }
-
     void Update() 
     {
-        Ray ray = Camera.main.ScreenPointToRay(_movementInput);
-        RaycastHit hit;
-        
-        if(Physics.Raycast(ray, out hit))
+        if(Player.Instance.IsAlive)
         {
-            Debug.DrawLine(ray.origin, hit.point, Color.red);
-            transform.LookAt(hit.point);
+            Ray ray = Camera.main.ScreenPointToRay(_movementInput);
+            RaycastHit hit;
+            
+            if(Physics.Raycast(ray, out hit))
+            {
+                Debug.DrawLine(ray.origin, hit.point, Color.red);
+                transform.LookAt(hit.point);
+            }
         }
     }
 
