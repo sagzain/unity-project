@@ -10,11 +10,14 @@ public class Zombie : MonoBehaviour
     
     [Header("Other parameters")]
     [SerializeField] private GameObject _blood;
+    [SerializeField] private List<AudioClip> _sounds = new List<AudioClip>();
     [SerializeField] private float _timeToDestroy = .5f;
     [SerializeField] private float _maxDistance = 10f, _minDistance = 2f;
 
     private Transform _playerTransform;
     private Animator _animator;
+    private AudioSource _audioSource;
+
     private bool _isAttacking = false;
     private float  _distanceToPlayer;
 
@@ -22,7 +25,26 @@ public class Zombie : MonoBehaviour
     {
         _playerTransform = Player.Instance.transform;
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     } 
+
+    void Start() 
+    {
+        StartCoroutine(ZombieSound());
+  
+    }
+
+    IEnumerator ZombieSound()
+    {
+        while(!_animator.GetBool("IsAttacking") && !_animator.GetBool("IsDead"))
+        {
+            _audioSource.clip = _sounds[0];
+            int random = Random.Range(1,5);
+            _audioSource.PlayDelayed(random);
+            yield return new WaitForSeconds(_audioSource.clip.length + random);
+        }
+        
+    }
 
     void FixedUpdate()
     {
@@ -60,6 +82,8 @@ public class Zombie : MonoBehaviour
             Vector3 position = transform.position;
             Vector3 floor = new Vector3(position.x, 0.1f, position.z);
             _animator.SetBool("IsDead", true);
+            _audioSource.Stop();
+            _audioSource.PlayOneShot(_sounds[2]);
             Instantiate(_blood, floor, _blood.transform.rotation);
             StartCoroutine(Despawn());  
         }  
@@ -67,10 +91,13 @@ public class Zombie : MonoBehaviour
 
     public void Damage()
     {
-        // if(_distanceToPlayer <= _minDistance)
-        // {
+        _audioSource.Stop();
+        _audioSource.PlayOneShot(_sounds[1]);
+
+        if(Player.Instance.IsAlive)
+        {
             Player.Instance.GetComponent<Health>().TakeDamage(_damage);
-        // }
+        }
     }
 
     IEnumerator Despawn()
