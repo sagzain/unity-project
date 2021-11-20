@@ -3,20 +3,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletPrefab;
-    private Vector3 _movementInput;
-    private Transform _weaponOutput;
+    private GameObject _weapon;
+    private Vector3 _mouseInput;    
 
     void Awake()
     {
-        _weaponOutput = GameObject.Find("Pistol").transform.GetChild(0).gameObject.transform;
+        _weapon = GameObject.FindWithTag("Weapon");
     }
 
     void Update() 
     {
         if(Player.Instance.IsAlive)
         {
-            Ray ray = Camera.main.ScreenPointToRay(_movementInput);
+            Ray ray = Camera.main.ScreenPointToRay(_mouseInput);
             RaycastHit hit;
             
             if(Physics.Raycast(ray, out hit))
@@ -32,7 +31,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if(Player.Instance.IsAlive)
         {
-            _movementInput = value.ReadValue<Vector2>();
+            _mouseInput = value.ReadValue<Vector2>();
         }
     }
 
@@ -40,7 +39,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if(value.performed && Player.Instance.IsAlive)
         {
-            Instantiate(_bulletPrefab, _weaponOutput.position, transform.rotation);
+            _weapon.GetComponent<Revolver>().Shoot();
         }
     }
 }

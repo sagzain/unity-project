@@ -1220,9 +1220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3be705d127a35246a57deb3ef4f0581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 9142380541360078213, guid: 66882e958fc3b1e4386f790856df6f72, type: 3}
-  _movementInput: {x: 0, y: 0, z: 0}
-  _weaponOutput: {fileID: 0}
+  _weapon: {fileID: 0}
 --- !u!114 &1651662786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,7 +1498,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1604650248748398, guid: 1c38d01b37b46554786a8da9ffb9e896, type: 3}
       propertyPath: m_Name
-      value: Pistol
+      value: Revolver
       objectReference: {fileID: 0}
     - target: {fileID: 4626708622261990, guid: 1c38d01b37b46554786a8da9ffb9e896, type: 3}
       propertyPath: m_RootOrder
