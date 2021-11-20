@@ -4,9 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] private Vector3 _movementInput;
-
-    [SerializeField]private Transform _weaponOutput;
+    private Vector3 _movementInput;
+    private Transform _weaponOutput;
 
     void Awake()
     {
