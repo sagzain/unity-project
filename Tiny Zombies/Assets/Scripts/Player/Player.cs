@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : Singleton<Player>
 {
     [SerializeField] private GameObject _blood;
-    [SerializeField] private List<AudioClip> _sounds = new List<AudioClip>();
+
     private Health _health;
     private Animator _animator;
     private AudioSource _audioSource;
@@ -21,7 +21,7 @@ public class Player : Singleton<Player>
 
     public void Death()
     {
-        _audioSource.PlayOneShot(_sounds[0]);
+        _audioSource.Play();
         _animator.SetBool("IsDead", true);
 
         Vector3 position = transform.position;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
+    private Transform _target;
 
     [SerializeField] private float _followSpeed = .125f; 
     [SerializeField] private Vector3 _offset;
@@ -12,6 +12,7 @@ public class CameraFollow : MonoBehaviour
     void Awake()
     {
         _offset = transform.position;
+        _target = Player.Instance.transform;
     }
 
     void LateUpdate() 
