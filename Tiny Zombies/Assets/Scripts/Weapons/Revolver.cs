@@ -12,12 +12,14 @@ public class Revolver : MonoBehaviour
     [SerializeField] private int _totalBullets = 6;
     
     private Transform _outputPoint;
+    private Animator _muzzleFlash;
     private AudioSource _audioSource;
     private bool _shotAvailable = true;
 
     void Awake()
     {
         _outputPoint = transform.GetChild(0).gameObject.transform;
+        _muzzleFlash = _outputPoint.GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -27,7 +29,8 @@ public class Revolver : MonoBehaviour
         {
             _totalBullets--;
             _shotAvailable = false;
-            _audioSource.Play();            
+            _audioSource.Play();           
+            _muzzleFlash.SetTrigger("Shoot"); 
             Instantiate(_bulletPrefab, _outputPoint.position, transform.rotation);
             
             var function = _totalBullets <= 0 ? StartCoroutine(Reload()) : StartCoroutine(ShootDelay());
