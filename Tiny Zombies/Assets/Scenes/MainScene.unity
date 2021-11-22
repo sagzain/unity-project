@@ -178,10 +178,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerMale
       objectReference: {fileID: 0}
-    - target: {fileID: 7720867678327176563, guid: 525e676e66565d14aa04b591767e8845, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 525e676e66565d14aa04b591767e8845, type: 3}
 --- !u!1001 &45055544
@@ -1592,7 +1588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &280706453
 Transform:
   m_ObjectHideFlags: 0
@@ -2290,6 +2286,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 59549159}
     m_Modifications:
+    - target: {fileID: 996104406745770817, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2503789884614691172, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2320,7 +2320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6194926885253922144, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6194926885253922146, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
       propertyPath: m_IsActive
@@ -2328,15 +2328,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6194926885253947712, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6194926885253947712, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6194926885253947712, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389310052410975370, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389310052410975370, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.50318414
       objectReference: {fileID: 0}
     - target: {fileID: 8393559778956922955, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
       propertyPath: m_RootOrder
@@ -2941,6 +2949,10 @@ PrefabInstance:
     - target: {fileID: 8393559778956954667, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
       propertyPath: m_Name
       value: PlayerFemale
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393559778956954667, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77f8fba5fb0a7c7449a1b4d691c6ee91, type: 3}
