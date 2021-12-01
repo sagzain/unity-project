@@ -41,7 +41,7 @@ public class Revolver : MonoBehaviour
             
             if(Physics.Raycast(transform.position, transform.forward, out hit))
             {
-                hit.collider.gameObject.GetComponent<Zombie>().Death(); // Generalizar mucho más este código haciendo uso de interfaces
+                // hit.collider.gameObject.GetComponent<Zombie>().Death(); // Generalizar mucho más este código haciendo uso de interfaces
                 var end = new Vector3(0, 0, Vector3.Distance(transform.position, hit.point));
                 _outputPoint.GetChild(1).gameObject.GetComponent<LineRenderer>().SetPosition(1, end);
             }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviour, IDamageable
 {
     [SerializeField] private int _maxHealth = 3;
     [SerializeField] private int _currentHealth;
@@ -21,4 +21,6 @@ public class Health : MonoBehaviour
             Player.Instance.Death();
         }
     }
+
+    
 }
