@@ -199,6 +199,7 @@ MonoBehaviour:
   _reloadTime: 4
   _shootingDelay: 0.75
   _totalBullets: 5
+  _damage: 1
 --- !u!1 &659755068911671951
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +211,7 @@ GameObject:
   - component: {fileID: 1081292763748415890}
   - component: {fileID: 2279038020422278744}
   m_Layer: 0
-  m_Name: Spot Light
+  m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

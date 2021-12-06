@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Revolver : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] private AudioClip _reloadSound;
-    [SerializeField] private AudioClip _delaySound;
+    [Header("Stats")]
+    [SerializeField] private int _damage = 1;
+    [SerializeField] private int _totalBullets = 6;
     [SerializeField] private float _reloadTime = 4f;
     [SerializeField] private float _shootingDelay = 0.75f;
-    [SerializeField] private int _totalBullets = 6;
+
+    [Header("Audio")]
+    // [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private AudioClip _reloadSound;
+    [SerializeField] private AudioClip _delaySound;
 
     private Transform _outputPoint;
     private Animator _muzzleFlash;
@@ -31,6 +35,8 @@ public class Revolver : MonoBehaviour
             var target = hit.point;
             Debug.DrawLine(transform.position, target, Color.yellow);
         }
+
+        
     }
 
     public void Shoot()
@@ -41,7 +47,13 @@ public class Revolver : MonoBehaviour
             
             if(Physics.Raycast(transform.position, transform.forward, out hit))
             {
-                // hit.collider.gameObject.GetComponent<Zombie>().Death(); // Generalizar mucho más este código haciendo uso de interfaces
+                var target = hit.collider.gameObject.GetComponent<IDamageable>();
+                
+                if(target != null)
+                {
+                    target.TakeDamage(_damage);
+                }
+
                 var end = new Vector3(0, 0, Vector3.Distance(transform.position, hit.point));
                 _outputPoint.GetChild(1).gameObject.GetComponent<LineRenderer>().SetPosition(1, end);
             }
@@ -54,7 +66,6 @@ public class Revolver : MonoBehaviour
             _shotAvailable = false;
             _audioSource.Play();
             _muzzleFlash.SetTrigger("Shoot");
-            // Instantiate(_bulletPrefab, _outputPoint.position, transform.rotation);
 
             var function = _totalBullets <= 0 ? StartCoroutine(Reload()) : StartCoroutine(ShootDelay());
         }

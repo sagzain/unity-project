@@ -25,7 +25,7 @@ public class Player : Singleton<Player>
         _animator.SetBool("IsDead", true);
 
         Vector3 position = transform.position;
-        Vector3 floor = new Vector3(position.x, 0.1f, position.z);
+        Vector3 floor = new Vector3(position.x, 0.15f, position.z);
         Instantiate(_blood, floor, _blood.transform.rotation);
     }
 }

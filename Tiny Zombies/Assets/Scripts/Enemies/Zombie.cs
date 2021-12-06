@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Zombie : Enemy
 {
-    
-}
     // [Header("Stats")]
     // [SerializeField] private int _damage = 1;
     // [SerializeField] private float _moveSpeed = 3f;
@@ -13,22 +11,7 @@ public class Zombie : Enemy
     // [Header("Other parameters")]
     // [SerializeField] private GameObject _blood;
     // [SerializeField] private List<AudioClip> _sounds = new List<AudioClip>();
-    // [SerializeField] private float _timeToDestroy = .5f;
-    // [SerializeField] private float _maxDistance = 10f, _minDistance = 2f;
-
-    // private Transform _playerTransform;
-    // private Animator _animator;
-    // private AudioSource _audioSource;
-
-    // private bool _isAttacking = false;
-    // private float _distanceToPlayer;
-
-    // void Awake()
-    // {
-    //     _playerTransform = Player.Instance.transform;
-    //     _animator = GetComponent<Animator>();
-    //     _audioSource = GetComponent<AudioSource>();
-    // }
+    
 
     // // void Start()
     // // {
@@ -48,33 +31,7 @@ public class Zombie : Enemy
 
     // // }
 
-    // void FixedUpdate()
-    // {
-    //     _distanceToPlayer = 99;
-    //     if (Player.Instance.IsAlive)
-    //     {
-    //         _distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
-    //     }
-
-    //     if (_animator.GetBool("IsDead") == false)
-    //     {
-    //         if (_distanceToPlayer > _minDistance && _distanceToPlayer <= _maxDistance)
-    //         {
-    //             _animator.SetFloat("Velocity", 1);
-    //             transform.position += transform.forward * _moveSpeed * Time.deltaTime;
-    //             transform.LookAt(_playerTransform);
-    //         }
-    //         else
-    //         {
-    //             _animator.SetFloat("Velocity", 0);
-    //         }
-
-
-    //         _isAttacking = _distanceToPlayer <= _minDistance ? true : false;
-    //         _animator.SetBool("IsAttacking", _isAttacking);
-    //     }
-    // }
-
+    
     // private void OnCollisionEnter(Collision other)
     // {
     //     if (other.gameObject.tag == "Player") Debug.Log("Colision con jugador");
@@ -107,12 +64,12 @@ public class Zombie : Enemy
 
     // public void Damage()
     // {
-    //     _audioSource.PlayOneShot(_sounds[1]);
+    //     _audioSource.PlayOneShot();
 
-    //     if (Player.Instance.IsAlive)
-    //     {
-    //         Player.Instance.GetComponent<Health>().TakeDamage(_damage);
-    //     }
+    //     // if (Player.Instance.IsAlive)
+    //     // {
+    //     //     Player.Instance.GetComponent<Health>().TakeDamage(_damage);
+    //     // }
     // }
 
     // IEnumerator Despawn()
@@ -120,4 +77,4 @@ public class Zombie : Enemy
     //     yield return new WaitForSeconds(_timeToDestroy);
     //     Destroy(gameObject);
     // }
-// }
+}
