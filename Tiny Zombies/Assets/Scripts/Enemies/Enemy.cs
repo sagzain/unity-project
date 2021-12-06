@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable
 {
     [Header("Stats")]
+    [SerializeField] protected Health health;
     [SerializeField] private int _health;
     [SerializeField] private int _damage;
     [SerializeField] private float _movementSpeed;
@@ -28,6 +29,15 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void TakeDamage(int amount)
     {
-        _health -= amount;
+        if(health.IsAlive)
+        {
+            health.DecreaseHealth(amount);
+        }
+    }
+
+    public void Death()
+    {
+        _audioSource.PlayOneShot(_deathSound);
+        _animator.SetBool("IsDead", true);
     }
 }
