@@ -22,6 +22,11 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
     [SerializeField] private AudioClip _deathSound;
     [SerializeField] private AudioClip _attackSound;
 
+    public GameObject Blood => _blood;
+    public AudioClip IdleSound => _idleSound;
+    public AudioClip DeathSound => _deathSound;
+    public AudioClip AttackSound => _attackSound;
+    
     // [SerializeField] private float _timeToDestroy = .5f;
     // [SerializeField] private float _maxDistance = 10f, _minDistance = 2f;
 
@@ -35,7 +40,10 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
 
     void Awake()
     {
-        // _playerTransform = Player.Instance.transform;
+        // Inicializamos la máquina de estados
+        base.AwakeMachine();
+
+        // Obtenemos los componentes necesarios para el enemigo
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -43,8 +51,9 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
 
     void Start()
     {
+        // Creamos los estados que va a contener la máquina de estados
         IState idle = new EnemyIdle();
-        IState chasing = new EnemyMovement();
+        IState chasing = new EnemyChasing();
         IState attacking = new EnemyAttack();
         IState dead = new EnemyDeath();
 
@@ -52,6 +61,15 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
         _states.Add(EnumEnemyState.Chasing, chasing);
         _states.Add(EnumEnemyState.Attacking, attacking);
         _states.Add(EnumEnemyState.Dead, dead);
+
+        // Comenzamos la máquina de estados en el idle
+        TransitionTo(EnumEnemyState.Idle);
+        base.StartMachine();
+    }
+
+    void FixedUpdate()
+    {
+        base.UpdateMachine();
     }
 
     public void TakeDamage(int amount)
@@ -60,46 +78,39 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
 
         if(_health <= 0)
         {
-            Death();
-        }
-        // _health.DecreaseHealth(amount);
-
-        // if(_health.IsAlive)
-        // {
-        //     Death();
-        // }
-    }
-
-    public void Damage()
-    {
-        _audioSource.PlayOneShot(_attackSound);
-
-        if (Player.Instance.IsAlive)
-        {
-            Player.Instance.GetComponent<Health>().DecreaseHealth(_damage);
+            TransitionTo(EnumEnemyState.Dead);
         }
     }
+
+    // public void Damage()
+    // {
+    //     _audioSource.PlayOneShot(_attackSound);
+
+    //     if (Player.Instance.IsAlive)
+    //     {
+    //         Player.Instance.GetComponent<Health>().DecreaseHealth(_damage);
+    //     }
+    // }
 
     public void Death()
     {
-        if (!_animator.GetBool("IsDead"))
-        {
-            // Play death animation and death audio
-            _animator.SetBool("IsDead", true);
-            // _audioSource.Stop();
-            _audioSource.PlayDelayed(.15f);
-            _audioSource.PlayOneShot(_deathSound);
+        // if (!_animator.GetBool("IsDead"))
+        // {
+        //     // Play death animation and death audio
+        //     _animator.SetBool("IsDead", true);
+        //     // _audioSource.Stop();
+        //     _audioSource.PlayDelayed(.15f);
+        //     _audioSource.PlayOneShot(_deathSound);
 
-            // Blood Instantiation above the floor to avoid visual glitches with the ground
-            Vector3 position = transform.position;
-            Vector3 floor = new Vector3(position.x, 0.15f, position.z);
-            Instantiate(_blood, floor, _blood.transform.rotation);
+        //     // Blood Instantiation above the floor to avoid visual glitches with the ground
+        //     Vector3 position = transform.position;
+        //     Vector3 floor = new Vector3(position.x, 0.15f, position.z);
+        //     Instantiate(_blood, floor, _blood.transform.rotation);
 
-            // Despawn the dead zombie GameObject
-            // StartCoroutine(Despawn());
-        }
+        //     // Despawn the dead zombie GameObject
+        //     // StartCoroutine(Despawn());
+        // }
     }
-
 
     public void OnSpawn()
     {

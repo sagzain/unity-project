@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class StateMachine : MonoBehaviour
+public class StateMachine : MonoBehaviour  
 {
-    private IState _currentState;
+    protected IState _currentState;
     protected Dictionary<Enum, IState> _states;
 
-    void Awake()
+    public void AwakeMachine()
     {
         _states = new Dictionary<Enum, IState>();
     }
 
-    void Start()
+    public void StartMachine()
     {
         if(_currentState != null)
         {
@@ -21,7 +20,7 @@ public class StateMachine : MonoBehaviour
         }
     }
 
-    void Update()
+    public void UpdateMachine()
     {
         if(_currentState != null)
         {
@@ -32,5 +31,6 @@ public class StateMachine : MonoBehaviour
     public void TransitionTo(Enum state)
     {
         _currentState = _states[state];
+        _currentState.EnterState(this);
     }
 }

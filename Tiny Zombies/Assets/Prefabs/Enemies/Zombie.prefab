@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 3463169584227814909}
   - component: {fileID: 3793011165473677104}
   - component: {fileID: -2392367659390211583}
+  - component: {fileID: -8775243503368330648}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Enemy
@@ -264,6 +265,26 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-8775243503368330648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856601670117699726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ddcffdb2cd5274ba34a0b44344691c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 1
+  _damage: 1
+  _movementSpeed: 1
+  score: 100
+  _blood: {fileID: 174533810872408216, guid: 5cfa98c8930b08e48884e2ffc400d4ff, type: 3}
+  _idleSound: {fileID: 8300000, guid: 82c4559957b0a0c47929d9236b4fd0a9, type: 3}
+  _deathSound: {fileID: 8300000, guid: 766b5064c5543da4a9940ec0d7d7d253, type: 3}
+  _attackSound: {fileID: 8300000, guid: b27154039c826cd419f4b1b5cd78238e, type: 3}
 --- !u!1 &856601670117699840
 GameObject:
   m_ObjectHideFlags: 0
