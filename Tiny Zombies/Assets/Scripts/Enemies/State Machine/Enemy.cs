@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, ISpawnable, IDamageable
+[RequireComponent(typeof(NavMeshAgent), typeof(Animator), typeof(AudioSource))]
+public class Enemy : StateMachine, ISpawnable, IDamageable
 {
     [Header("Stats")]
-    // [SerializeField] protected Health _health;
     [SerializeField] private int _health;
     [SerializeField] private int _damage;
     [SerializeField] private float _movementSpeed;
@@ -21,51 +22,37 @@ public class Enemy : MonoBehaviour, ISpawnable, IDamageable
     [SerializeField] private AudioClip _deathSound;
     [SerializeField] private AudioClip _attackSound;
 
+    // [SerializeField] private float _timeToDestroy = .5f;
+    // [SerializeField] private float _maxDistance = 10f, _minDistance = 2f;
 
-    [SerializeField] private float _timeToDestroy = .5f;
-    [SerializeField] private float _maxDistance = 10f, _minDistance = 2f;
-
-    private Transform _playerTransform;
+    // private Transform _playerTransform;
     private Animator _animator;
     private AudioSource _audioSource;
+    private NavMeshAgent _navMeshAgent;
 
-    private bool _isAttacking = false;
-    private float _distanceToPlayer;
+    // private bool _isAttacking = false;
+    // private float _distanceToPlayer;
 
     void Awake()
     {
-        _playerTransform = Player.Instance.transform;
+        // _playerTransform = Player.Instance.transform;
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    void FixedUpdate()
+    void Start()
     {
-        _distanceToPlayer = 99;
-        if (Player.Instance.IsAlive)
-        {
-            _distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
-        }
+        IState idle = new EnemyIdle();
+        IState chasing = new EnemyMovement();
+        IState attacking = new EnemyAttack();
+        IState dead = new EnemyDeath();
 
-        if (_animator.GetBool("IsDead") == false)
-        {
-            if (_distanceToPlayer > _minDistance && _distanceToPlayer <= _maxDistance)
-            {
-                _animator.SetFloat("Velocity", 1);
-                transform.position += transform.forward * _movementSpeed * Time.deltaTime;
-                transform.LookAt(_playerTransform);
-            }
-            else
-            {
-                _animator.SetFloat("Velocity", 0);
-            }
-
-
-            _isAttacking = _distanceToPlayer <= _minDistance ? true : false;
-            _animator.SetBool("IsAttacking", _isAttacking);
-        }
+        _states.Add(EnumEnemyState.Idle, idle);
+        _states.Add(EnumEnemyState.Chasing, chasing);
+        _states.Add(EnumEnemyState.Attacking, attacking);
+        _states.Add(EnumEnemyState.Dead, dead);
     }
-
 
     public void TakeDamage(int amount)
     {
@@ -126,3 +113,31 @@ public class Enemy : MonoBehaviour, ISpawnable, IDamageable
         // Settear la mascara para dejar de colisionar con el raycast
     }
 }
+
+// Se utilizaba para comprobar la distancia hasta el jugador y asi hacer el ataque
+// void FixedUpdate()
+    // {
+        // _distanceToPlayer = 99;
+        // if (Player.Instance.IsAlive)
+        // {
+        //     _distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
+        // }
+
+        // if (_animator.GetBool("IsDead") == false)
+        // {
+        //     if (_distanceToPlayer > _minDistance && _distanceToPlayer <= _maxDistance)
+        //     {
+        //         _animator.SetFloat("Velocity", 1);
+        //         transform.position += transform.forward * _movementSpeed * Time.deltaTime;
+        //         transform.LookAt(_playerTransform);
+        //     }
+        //     else
+        //     {
+        //         _animator.SetFloat("Velocity", 0);
+        //     }
+
+
+        //     _isAttacking = _distanceToPlayer <= _minDistance ? true : false;
+        //     _animator.SetBool("IsAttacking", _isAttacking);
+        // }
+    // }
