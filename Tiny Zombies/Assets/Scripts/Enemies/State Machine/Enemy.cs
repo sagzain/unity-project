@@ -1,55 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
+using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator), typeof(AudioSource))]
 public class Enemy : StateMachine, ISpawnable, IDamageable
 {
-    [Header("Stats")]
+    [Header("Enemy Information")]
+    [SerializeField] private int _maxHealth;
     [SerializeField] private int _health;
     [SerializeField] private int _damage;
     [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _attackRange;
+    [SerializeField] private float _attackDelay;
+    [SerializeField] private float _chaseRange;
+    [SerializeField] private int _score;
 
-    [Header("Rewards")]
-    [SerializeField] private int score;
+    public float MovementSpeed => _movementSpeed;
+    public float AttackRange => _attackRange;
+    public float ChasingRange => _chaseRange;
 
     [Header("Visuals")]
     [SerializeField] private GameObject _blood;
 
-    [Header("Audio")]
+    [Header("Sounds")]
     [SerializeField] private AudioClip _idleSound;
     [SerializeField] private AudioClip _deathSound;
     [SerializeField] private AudioClip _attackSound;
-
-    public GameObject Blood => _blood;
-    public AudioClip IdleSound => _idleSound;
-    public AudioClip DeathSound => _deathSound;
-    public AudioClip AttackSound => _attackSound;
     
-    // [SerializeField] private float _timeToDestroy = .5f;
-    // [SerializeField] private float _maxDistance = 10f, _minDistance = 2f;
+    // Componentes necesarios para el enemigo
+    protected Animator _animator;
+    protected AudioSource _audioSource;
+    protected NavMeshAgent _navMeshAgent;
 
-    // private Transform _playerTransform;
-    private Animator _animator;
-    private AudioSource _audioSource;
-    private NavMeshAgent _navMeshAgent;
 
-    // private bool _isAttacking = false;
-    // private float _distanceToPlayer;
+    // Accesibilidad a componentes para los estados
+    public Animator Animator => _animator;
+    public AudioSource AudioSource => _audioSource;
+    public NavMeshAgent NavMeshAgent => _navMeshAgent;
 
-    void Awake()
+    protected override void Awake()
     {
         // Inicializamos la máquina de estados
-        base.AwakeMachine();
+        base.Awake();
 
-        // Obtenemos los componentes necesarios para el enemigo
+        // Obtenemos los componentes necesarios para la máquina de estados
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    void Start()
+    protected override void Start()
     {
         // Creamos los estados que va a contener la máquina de estados
         IState idle = new EnemyIdle();
@@ -63,92 +64,110 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
         _states.Add(EnumEnemyState.Dead, dead);
 
         // Comenzamos la máquina de estados en el idle
-        TransitionTo(EnumEnemyState.Idle);
-        base.StartMachine();
+        _currentState = idle;
+
+        base.Start();
     }
 
-    void FixedUpdate()
+    protected override void Update()
     {
-        base.UpdateMachine();
+        if(Player.Instance.IsAlive)
+        {
+            base.Update();
+        }
+    }
+
+    public float DistanceToPlayer()
+    {
+        var playerPosition = Player.Instance.transform.position;
+        return Vector3.Distance(transform.position, playerPosition);
     }
 
     public void TakeDamage(int amount)
     {
         _health -= amount;
 
-        if(_health <= 0)
+        if (_health <= 0)
         {
-            TransitionTo(EnumEnemyState.Dead);
+            Death();
         }
     }
 
-    // public void Damage()
-    // {
-    //     _audioSource.PlayOneShot(_attackSound);
+    public IEnumerator Damage()
+    {
+        _audioSource.PlayOneShot(_attackSound);
 
-    //     if (Player.Instance.IsAlive)
-    //     {
-    //         Player.Instance.GetComponent<Health>().DecreaseHealth(_damage);
-    //     }
-    // }
+        Player.Instance.GetComponent<Health>().DecreaseHealth(_damage);
+        yield return new WaitForSeconds(_attackDelay);
+
+        TransitionTo(EnumEnemyState.Idle);
+    }
 
     public void Death()
     {
-        // if (!_animator.GetBool("IsDead"))
-        // {
-        //     // Play death animation and death audio
-        //     _animator.SetBool("IsDead", true);
-        //     // _audioSource.Stop();
-        //     _audioSource.PlayDelayed(.15f);
-        //     _audioSource.PlayOneShot(_deathSound);
+        _audioSource.Stop();
+        _audioSource.PlayDelayed(.15f);
+        _audioSource.PlayOneShot(_deathSound);
 
-        //     // Blood Instantiation above the floor to avoid visual glitches with the ground
-        //     Vector3 position = transform.position;
-        //     Vector3 floor = new Vector3(position.x, 0.15f, position.z);
-        //     Instantiate(_blood, floor, _blood.transform.rotation);
+        TransitionTo(EnumEnemyState.Dead);
+         
+        // // Blood Instantiation above the floor to avoid visual glitches with the ground
+        Vector3 position = transform.position;
+        Vector3 floor = new Vector3(position.x, 0.15f, position.z);
+        Instantiate(_blood, floor, _blood.transform.rotation);
 
-        //     // Despawn the dead zombie GameObject
-        //     // StartCoroutine(Despawn());
-        // }
+        // Despawn the dead zombie GameObject
+        OnDespawn();
     }
 
     public void OnSpawn()
     {
         //Codigo DOTween para hacer animación de entrada
         // Settear la mascara para hacer colisiónn con el raycast
+
+ 
     }
 
     public void OnDespawn()
     {
         //Código DOTween para hacer animación de salida
         // Settear la mascara para dejar de colisionar con el raycast
+
+        StartCoroutine(Despawn());
+    }
+
+    private IEnumerator Despawn()
+    {
+        yield return new WaitForSeconds(2.25f);
+
+        PoolManager.Instance.Despawn(this.gameObject);
+    }
+
+    public void SetEnemyConfiguration(ScriptableEnemy enemySO)
+    {
+        _maxHealth = enemySO.Health;
+        _health = _maxHealth;
+        _movementSpeed = enemySO.MovementSpeed;
+        _damage = enemySO.Damage;
+        _attackRange = enemySO.AttackRange;
+        _attackDelay = enemySO.AttackDelay;
+        _chaseRange= enemySO.ChaseRange;
+        _blood = enemySO.Blood;
+        _idleSound = enemySO.IdleSound;
+        _deathSound = enemySO.DeathSound;
+        _attackSound = enemySO.AttackSound;
+    }
+
+    void OnEnable()
+    {
+        _health = _maxHealth;
+        GetComponent<Collider>().enabled = true;
+        
+        try
+        {
+            TransitionTo(EnumEnemyState.Idle);
+        }
+        catch(Exception){}
+        
     }
 }
-
-// Se utilizaba para comprobar la distancia hasta el jugador y asi hacer el ataque
-// void FixedUpdate()
-    // {
-        // _distanceToPlayer = 99;
-        // if (Player.Instance.IsAlive)
-        // {
-        //     _distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
-        // }
-
-        // if (_animator.GetBool("IsDead") == false)
-        // {
-        //     if (_distanceToPlayer > _minDistance && _distanceToPlayer <= _maxDistance)
-        //     {
-        //         _animator.SetFloat("Velocity", 1);
-        //         transform.position += transform.forward * _movementSpeed * Time.deltaTime;
-        //         transform.LookAt(_playerTransform);
-        //     }
-        //     else
-        //     {
-        //         _animator.SetFloat("Velocity", 0);
-        //     }
-
-
-        //     _isAttacking = _distanceToPlayer <= _minDistance ? true : false;
-        //     _animator.SetBool("IsAttacking", _isAttacking);
-        // }
-    // }

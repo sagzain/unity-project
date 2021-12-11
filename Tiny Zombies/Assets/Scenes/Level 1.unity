@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.2
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.06666667
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -13604,7 +13604,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playground: {fileID: 1165150308}
-  _enemyPrefab: {fileID: 856601670117699726, guid: b14953694d54eea4eb66f453e525024c, type: 3}
+  _zombieSO: {fileID: 11400000, guid: d8c79394042272542a96065d293e7e46, type: 2}
+  _totalZombies: 1
+  _spawnDelayZombies: 3.5
 --- !u!4 &991753911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4423381248071784, guid: 097c26aede8f73e41a32d546bd00e97f, type: 3}
@@ -16240,7 +16242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4063223197671162, guid: e484c7ad7b1274b4c847940d3eb54d14, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4063223197671162, guid: e484c7ad7b1274b4c847940d3eb54d14, type: 3}
       propertyPath: m_LocalScale.z
@@ -29481,7 +29483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 813773585806771256, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 813887414329163694, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_Layer
@@ -29493,7 +29495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 813887414329163694, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 813915706019280336, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_Layer
@@ -29505,7 +29507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 813915706019280336, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 814290664105706734, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_Layer
@@ -29517,7 +29519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 814290664105706734, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1647159049656936783, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_Layer
@@ -29529,7 +29531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1647159049656936783, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2343065650677758744, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_RootOrder
@@ -29589,7 +29591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2345614434092930500, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2470340965030462280, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
       propertyPath: m_Materials.Array.size
@@ -29603,7 +29605,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8898793930059261254, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a65bc7a70dcdd044cbab2b48e54db0d5, type: 3}
 --- !u!1001 &3317045164719386771
 PrefabInstance:

@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class Zombie : Enemy
 {
-    // [Header("Stats")]
-    // [SerializeField] private int _damage = 1;
-    // [SerializeField] private float _moveSpeed = 3f;
-
-    // [Header("Other parameters")]
-    // [SerializeField] private GameObject _blood;
-    // [SerializeField] private List<AudioClip> _sounds = new List<AudioClip>();
-    
-
     // // void Start()
     // // {
     // //     StartCoroutine(ZombieSound());

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2331138618a26b499c3d53dc2ff3e77, type: 3}
+  m_Name: Head
+  m_EditorClassIdentifier: 
+  _health: 1
+  _damage: 2
+  _movementSpeed: 1
+  _attackRange: 5
+  _attackDelay: 1
+  _chaseRange: 5
+  _score: 100
+  _enemyPrefab: {fileID: 6854331784037278701, guid: acfad2687bdd0e74684b8d87df2aeb59, type: 3}
+  _blood: {fileID: 174533810872408216, guid: 5cfa98c8930b08e48884e2ffc400d4ff, type: 3}
+  _idleSound: {fileID: 8300000, guid: 82c4559957b0a0c47929d9236b4fd0a9, type: 3}
+  _deathSound: {fileID: 8300000, guid: 766b5064c5543da4a9940ec0d7d7d253, type: 3}
+  _attackSound: {fileID: 8300000, guid: b27154039c826cd419f4b1b5cd78238e, type: 3}

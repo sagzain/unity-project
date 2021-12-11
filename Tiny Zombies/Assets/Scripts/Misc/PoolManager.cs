@@ -3,42 +3,42 @@ using UnityEngine;
 
 public class PoolManager : Singleton<PoolManager>
 {
-    Dictionary<string, List<GameObject>> pool;
-    Transform poolParent;
+    private Dictionary<string, List<GameObject>> _pool;
+    private Transform _poolParent;
 
     void Awake()
     {
-        this.pool = new Dictionary<string, List<GameObject>>();
-        this.poolParent = new GameObject("Pool Parent").transform;
+        this._pool = new Dictionary<string, List<GameObject>>();
+        this._poolParent = new GameObject("Pool Parent").transform;
     }
 
     public void Load(GameObject prefab, int quantity = 1)
     {
         var prefabName = prefab.name;
 
-        if(!pool.ContainsKey(prefabName))
+        if(!_pool.ContainsKey(prefabName))
         {
-            pool[prefabName] = new List<GameObject>();
+            _pool[prefabName] = new List<GameObject>();
         }
 
         for(int i = 0; i < quantity; i++)
         {
             var prefabInstance = Instantiate(prefab);
             prefabInstance.name = prefabName;
-            prefabInstance.transform.SetParent(poolParent);
+            prefabInstance.transform.SetParent(_poolParent);
             prefabInstance.SetActive(false);
-            pool[prefabName].Add(prefabInstance);
+            _pool[prefabName].Add(prefabInstance);
         }
     }
 
     public GameObject Spawn(GameObject prefab)
     {
-        if(!pool.ContainsKey(prefab.name) || pool[prefab.name].Count == 0)
+        if(!_pool.ContainsKey(prefab.name) || _pool[prefab.name].Count == 0)
         {
             Load(prefab, 1);
         }
 
-        var prefabList = pool[prefab.name];
+        var prefabList = _pool[prefab.name];
         var gameObject = prefabList[0];
         
         prefabList.RemoveAt(0);
@@ -60,9 +60,9 @@ public class PoolManager : Singleton<PoolManager>
     {
         var prefabName = prefab.name;
     
-        if(!pool.ContainsKey(gameObject.name))
+        if(!_pool.ContainsKey(gameObject.name))
         {
-            pool[prefabName] = new List<GameObject>();
+            _pool[prefabName] = new List<GameObject>();
         }
 
         foreach(var spawnable in prefab.GetComponents<ISpawnable>())
@@ -74,8 +74,8 @@ public class PoolManager : Singleton<PoolManager>
         }
 
         prefab.SetActive(false);
-        prefab.transform.SetParent(poolParent, false);
-        pool[prefabName].Add(prefab);
+        prefab.transform.SetParent(_poolParent, false);
+        _pool[prefabName].Add(prefab);
     }
 
 }

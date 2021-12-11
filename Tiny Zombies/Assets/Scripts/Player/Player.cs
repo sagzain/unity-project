@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Singleton<Player>
+public class Player : Singleton<Player>, IDamageable
 {
     [SerializeField] private GameObject _blood;
 
@@ -17,6 +17,16 @@ public class Player : Singleton<Player>
         _health = GetComponent<Health>();
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        _health.DecreaseHealth(damage);
+
+        if(!_health.IsAlive)
+        {
+            Death();
+        }
     }
 
     public void Death()

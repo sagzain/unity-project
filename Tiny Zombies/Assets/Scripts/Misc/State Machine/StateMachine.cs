@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class StateMachine : MonoBehaviour  
 {
+    // Máquina de Estados 
     protected IState _currentState;
     protected Dictionary<Enum, IState> _states;
 
-    public void AwakeMachine()
+    protected virtual void Awake()
     {
         _states = new Dictionary<Enum, IState>();
     }
 
-    public void StartMachine()
+    protected virtual void Start()
     {
         if(_currentState != null)
         {
@@ -20,7 +23,7 @@ public class StateMachine : MonoBehaviour
         }
     }
 
-    public void UpdateMachine()
+    protected virtual void Update()
     {
         if(_currentState != null)
         {

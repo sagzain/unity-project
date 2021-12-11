@@ -9,28 +9,14 @@ public class Health : MonoBehaviour
     private int _currentHealth;
 
     public bool IsAlive => _currentHealth > 0;
+    
     public void DecreaseHealth(int damage)
     {
         _currentHealth -= damage;
-
-        if(!IsAlive) 
-        {
-            Player.Instance.Death();
-        }
     }
 
     void OnEnable()
     {
         _currentHealth = _maxHealth;
     }
-
-    // public void TakeDamage(int value)
-    // {
-    //     _currentHealth -= value;
-
-    //     if(!IsAlive)
-    //     {
-            
-    //     }
-    // }    
 }

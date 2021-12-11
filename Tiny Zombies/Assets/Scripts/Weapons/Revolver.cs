@@ -7,11 +7,11 @@ public class Revolver : MonoBehaviour
     [Header("Stats")]
     [SerializeField] private int _damage = 1;
     [SerializeField] private int _totalBullets = 6;
+    [SerializeField] private int _currentBullets;
     [SerializeField] private float _reloadTime = 4f;
     [SerializeField] private float _shootingDelay = 0.75f;
-
+  
     [Header("Audio")]
-    // [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private AudioClip _reloadSound;
     [SerializeField] private AudioClip _delaySound;
 
@@ -25,6 +25,8 @@ public class Revolver : MonoBehaviour
         _outputPoint = transform.GetChild(0).gameObject.transform;
         _muzzleFlash = _outputPoint.GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+
+        _currentBullets = _totalBullets;
     }
 
     void Update()
@@ -35,8 +37,6 @@ public class Revolver : MonoBehaviour
             var target = hit.point;
             Debug.DrawLine(transform.position, target, Color.yellow);
         }
-
-        
     }
 
     public void Shoot()
@@ -62,12 +62,12 @@ public class Revolver : MonoBehaviour
                 _outputPoint.GetChild(1).gameObject.GetComponent<LineRenderer>().SetPosition(1, new Vector3(0,0,20));
             }
 
-            _totalBullets--;
+            _currentBullets--;
             _shotAvailable = false;
             _audioSource.Play();
             _muzzleFlash.SetTrigger("Shoot");
 
-            var function = _totalBullets <= 0 ? StartCoroutine(Reload()) : StartCoroutine(ShootDelay());
+            var function = _currentBullets <= 0 ? StartCoroutine(Reload()) : StartCoroutine(ShootDelay());
         }
     }
 
@@ -83,6 +83,6 @@ public class Revolver : MonoBehaviour
         _audioSource.PlayOneShot(_reloadSound);
         yield return new WaitForSeconds(_reloadTime);
         _shotAvailable = true;
-        _totalBullets = 6;
+        _currentBullets = _totalBullets;
     }
 }
