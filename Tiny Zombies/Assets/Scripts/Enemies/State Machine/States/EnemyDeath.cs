@@ -9,7 +9,7 @@ public class EnemyDeath : IState
         _enemyFSM = (Enemy)stateMachine;
         _enemyFSM.Animator.SetFloat("Velocity", 0);
         _enemyFSM.Animator.SetTrigger("Death");
-        _enemyFSM.NavMeshAgent.ResetPath();
+        _enemyFSM.NavMeshAgent.speed= 0;
 
         _enemyFSM.GetComponent<Collider>().enabled = false;
     }

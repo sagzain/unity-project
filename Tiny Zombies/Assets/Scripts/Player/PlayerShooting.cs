@@ -44,5 +44,4 @@ public class PlayerShooting : MonoBehaviour
             _weapon.GetComponent<Revolver>().Shoot();
         }
     }
-    
 }

@@ -97,10 +97,20 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
     {
         _audioSource.PlayOneShot(_attackSound);
 
-        Player.Instance.GetComponent<Health>().DecreaseHealth(_damage);
+        RaycastHit hit;
+        
+        if(Physics.Raycast(transform.position, transform.forward, out hit, 1 << 6))
+        {
+            Debug.DrawRay(transform.position, Vector3.forward, Color.yellow);
+            hit.collider.GetComponent<IDamageable>().TakeDamage(_damage);        
+        }
+
         yield return new WaitForSeconds(_attackDelay);
 
-        TransitionTo(EnumEnemyState.Idle);
+        if(_currentState.GetType() != typeof(EnemyDeath))
+        {
+            TransitionTo(EnumEnemyState.Idle);
+        }
     }
 
     public void Death()
@@ -111,7 +121,7 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
 
         TransitionTo(EnumEnemyState.Dead);
          
-        // // Blood Instantiation above the floor to avoid visual glitches with the ground
+        // Blood Instantiation above the floor to avoid visual glitches with the ground
         Vector3 position = transform.position;
         Vector3 floor = new Vector3(position.x, 0.15f, position.z);
         Instantiate(_blood, floor, _blood.transform.rotation);

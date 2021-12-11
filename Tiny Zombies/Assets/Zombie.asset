@@ -16,7 +16,7 @@ MonoBehaviour:
   _damage: 1
   _movementSpeed: 4
   _attackRange: 1.5
-  _attackDelay: 2
+  _attackDelay: 1
   _chaseRange: 7.5
   _score: 50
   _enemyPrefab: {fileID: 856601670117699726, guid: b14953694d54eea4eb66f453e525024c, type: 3}

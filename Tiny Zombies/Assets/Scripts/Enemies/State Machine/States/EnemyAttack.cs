@@ -7,6 +7,7 @@ public class EnemyAttack : IState
     {
         _enemyFSM = (Enemy)stateMachine;
         _enemyFSM.Animator.SetTrigger("Attack");
+        _enemyFSM.transform.LookAt(Player.Instance.transform);
     }
 
     public void Update(StateMachine stateMachine)
