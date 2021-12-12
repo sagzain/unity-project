@@ -14705,7 +14705,7 @@ MonoBehaviour:
   _playground: {fileID: 1165150308}
   _zombieSO: {fileID: 11400000, guid: d8c79394042272542a96065d293e7e46, type: 2}
   _totalZombies: 20
-  _spawnDelayZombies: 2.25
+  _spawnDelayZombies: 2
 --- !u!4 &991753911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4423381248071784, guid: 097c26aede8f73e41a32d546bd00e97f, type: 3}
