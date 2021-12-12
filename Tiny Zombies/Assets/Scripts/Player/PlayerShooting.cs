@@ -41,7 +41,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if(value.performed && Player.Instance.IsAlive)
         {
-            _weapon.GetComponent<Revolver>().Shoot();
+            _weapon.GetComponent<Weapon>().Shoot();
         }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33711466379834024}
   - component: {fileID: 23053652525124920}
   - component: {fileID: 3417634036447692697}
-  - component: {fileID: 4031386943713796173}
+  - component: {fileID: 2998866616172174232}
   m_Layer: 0
   m_Name: Revolver
   m_TagString: Weapon
@@ -181,7 +181,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4031386943713796173
+--- !u!114 &2998866616172174232
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,16 +190,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1604650248748398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84d752be94295a0409c351ec6ba7b42a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c39332df85f40d4089666b0793a3564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 9142380541360078213, guid: 66882e958fc3b1e4386f790856df6f72, type: 3}
-  _reloadSound: {fileID: 8300000, guid: 7a4e0eee3ecbd5f49a2bff7fa627584f, type: 3}
-  _delaySound: {fileID: 8300000, guid: 7f08aad5bd1abc34db8242b56917f8b9, type: 3}
-  _reloadTime: 4
-  _shootingDelay: 0.75
-  _totalBullets: 5
-  _damage: 1
+  _weapon: {fileID: 11400000, guid: 1b01d6f83dd7f064f905ea9fb1d82962, type: 2}
+  _currentBullets: 0
 --- !u!1 &659755068911671951
 GameObject:
   m_ObjectHideFlags: 0
