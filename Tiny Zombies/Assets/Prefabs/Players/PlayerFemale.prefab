@@ -621,6 +621,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blood: {fileID: 6587353703879300488, guid: d8090a513a0685447b31df3fd88c4166, type: 3}
+  _damagedEvent: {fileID: 11400000, guid: 4788af4780c08e04281149541a9df7c4, type: 2}
+  _deathEvent: {fileID: 11400000, guid: 9150d05eac0b16e49815f4686f48d2c5, type: 2}
 --- !u!114 &4399292375483161562
 MonoBehaviour:
   m_ObjectHideFlags: 0

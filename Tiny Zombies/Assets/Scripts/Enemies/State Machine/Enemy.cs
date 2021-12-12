@@ -16,6 +16,9 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
     [SerializeField] private float _chaseRange;
     [SerializeField] private int _score;
 
+    [Header("Eventos")]
+    [SerializeField] private IntGameEvent _enemyKilledEvent;
+
     public float MovementSpeed => _movementSpeed;
     public float AttackRange => _attackRange;
     public float ChasingRange => _chaseRange;
@@ -125,6 +128,8 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
         Vector3 position = transform.position;
         Vector3 floor = new Vector3(position.x, 0.15f, position.z);
         Instantiate(_blood, floor, _blood.transform.rotation);
+
+        _enemyKilledEvent.Raise(_score);
 
         // Despawn the dead zombie GameObject
         OnDespawn();

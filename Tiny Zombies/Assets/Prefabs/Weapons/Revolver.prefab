@@ -195,6 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weapon: {fileID: 11400000, guid: 1b01d6f83dd7f064f905ea9fb1d82962, type: 2}
   _currentBullets: 0
+  _shootingEvent: {fileID: 11400000, guid: a3851d7624675b44abcc9220efddbb67, type: 2}
+  _reloadEvent: {fileID: 11400000, guid: f7c58a5a77348d34c8065b7d75a65a80, type: 2}
 --- !u!1 &659755068911671951
 GameObject:
   m_ObjectHideFlags: 0

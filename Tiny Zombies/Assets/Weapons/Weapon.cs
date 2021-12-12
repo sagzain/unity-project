@@ -7,12 +7,18 @@ public class Weapon : MonoBehaviour
     [SerializeField] private ScriptableWeapon _weapon;
     [SerializeField] private int _currentBullets;
 
+    [Header("Events")]
+    [SerializeField] private GameEvent _shootingEvent;
+    [SerializeField] private GameEvent _reloadEvent;
+
     private Transform _outputPoint;
     private Animator _muzzleFlash;
     private AudioSource _audioSource;
 
     private bool _shotAvailable = true;
     
+    public ScriptableWeapon WeaponInfo => _weapon;
+
     void Awake()
     {
         _outputPoint = transform.GetChild(0).gameObject.transform;
@@ -60,6 +66,8 @@ public class Weapon : MonoBehaviour
             _audioSource.Play();
             _muzzleFlash.SetTrigger("Shoot");
 
+            _shootingEvent.Raise();
+
             var function = _currentBullets <= 0 ? StartCoroutine(Reload()) : StartCoroutine(ShootDelay());
         }
     }
@@ -73,6 +81,7 @@ public class Weapon : MonoBehaviour
 
     IEnumerator Reload()
     {
+        _reloadEvent.Raise();
         _audioSource.PlayOneShot(_weapon.ReloadSound);
         yield return new WaitForSeconds(_weapon.ReloadTime);
         _shotAvailable = true;

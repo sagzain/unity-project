@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Player : Singleton<Player>, IDamageable
 {
+    [Header("Visuals")]
     [SerializeField] private GameObject _blood;
+    
+    [Header("Events")]
+    [SerializeField] private GameEvent _damagedEvent;
+    [SerializeField] private GameEvent _deathEvent;
 
     private Health _health;
     private Animator _animator;
     private AudioSource _audioSource;
-
+ 
     public bool IsAlive => _health.IsAlive;
 
     void Awake()
@@ -22,6 +27,8 @@ public class Player : Singleton<Player>, IDamageable
     public void TakeDamage(int damage)
     {
         _health.DecreaseHealth(damage);
+        
+        _damagedEvent.Raise();
 
         if(!_health.IsAlive)
         {
@@ -37,5 +44,7 @@ public class Player : Singleton<Player>, IDamageable
         Vector3 position = transform.position;
         Vector3 floor = new Vector3(position.x, 0.15f, position.z);
         Instantiate(_blood, floor, _blood.transform.rotation);
+
+        _deathEvent.Raise();
     }
 }
