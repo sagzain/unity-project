@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro; 
+using DG.Tweening;
+
 public class ScoreUI : MonoBehaviour
 {
-
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private TextMeshProUGUI _endGameText;
-
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +19,8 @@ public class ScoreUI : MonoBehaviour
     {
         int currentScore = int.Parse(_text.text);
         currentScore += value;
+
+        transform.DOPunchScale(Vector3.one * 0.33f, 1);
 
         _text.text = currentScore.ToString();
     }

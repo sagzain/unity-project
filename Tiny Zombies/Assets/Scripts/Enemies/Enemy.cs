@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 using System.Collections;
+using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator), typeof(AudioSource))]
 public class Enemy : StateMachine, ISpawnable, IDamageable
@@ -70,6 +71,8 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
         _currentState = idle;
 
         base.Start();
+
+        transform.localScale = Vector3.zero;
     }
 
     protected override void Update()
@@ -130,30 +133,29 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
         Instantiate(_blood, floor, _blood.transform.rotation);
 
         _enemyKilledEvent.Raise(_score);
-
-        // Despawn the dead zombie GameObject
-        OnDespawn();
+        StartCoroutine(Despawn());
     }
 
     public void OnSpawn()
     {
         //Codigo DOTween para hacer animación de entrada
-        // Settear la mascara para hacer colisiónn con el raycast
-
- 
+        transform.DOScale(Vector3.one, 1f).OnComplete(() => transform.localScale = Vector3.one);
+        
     }
 
     public void OnDespawn()
     {
-        //Código DOTween para hacer animación de salida
-        // Settear la mascara para dejar de colisionar con el raycast
-
-        StartCoroutine(Despawn());
+  
     }
 
     private IEnumerator Despawn()
     {
-        yield return new WaitForSeconds(2.25f);
+        //Código DOTween para hacer animación de salida
+        Sequence tweenSequence = DOTween.Sequence();
+        tweenSequence.PrependInterval(2f);
+        tweenSequence.Append(transform.DOScale(Vector3.zero, 2f));
+        
+        yield return tweenSequence.Play().WaitForCompletion();
 
         PoolManager.Instance.Despawn(this.gameObject);
     }
@@ -183,6 +185,5 @@ public class Enemy : StateMachine, ISpawnable, IDamageable
             TransitionTo(EnumEnemyState.Idle);
         }
         catch(Exception){}
-        
     }
 }
