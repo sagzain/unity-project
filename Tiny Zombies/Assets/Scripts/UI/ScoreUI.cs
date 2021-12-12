@@ -6,6 +6,8 @@ public class ScoreUI : MonoBehaviour
 {
 
     [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private TextMeshProUGUI _endGameText;
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,5 +21,11 @@ public class ScoreUI : MonoBehaviour
         currentScore += value;
 
         _text.text = currentScore.ToString();
+    }
+
+    public void EndGameScore()
+    {
+        _endGameText.text = "Your score: " + _text.text;
+        gameObject.SetActive(false);
     }
 }
