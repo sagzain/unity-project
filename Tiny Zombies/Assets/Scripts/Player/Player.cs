@@ -21,12 +21,10 @@ public class Player : Singleton<Player>, IDamageable
     
     public void TakeDamage(int damage)
     {
-        Debug.Log("Golpeado");
         _health.DecreaseHealth(damage);
 
         if(!_health.IsAlive)
         {
-            Debug.Log("Muerto");
             Death();
         }
     }
