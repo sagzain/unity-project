@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AmmoUI : MonoBehaviour
 {
+    [SerializeField] private GameObject parent;
     [SerializeField] private GameObject _ammoPrefab;
     private List<GameObject> _bullets;
     private ScriptableWeapon _weapon;
@@ -58,8 +59,8 @@ public class AmmoUI : MonoBehaviour
     {
         for(int i = 0; i < quantity; i++)
         {
-            var instance = Instantiate(_ammoPrefab, transform.position, transform.rotation);
-            instance.transform.SetParent(gameObject.transform);
+            var instance = Instantiate(_ammoPrefab, parent.transform.position, parent.transform.rotation);
+            instance.transform.transform.SetParent(parent.transform);
             _bullets.Add(instance); 
         }
     }
