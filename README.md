@@ -1,7 +1,4 @@
-# unity-project
-Game project made with Unity & C# - Advanced Programming - Master's Degree on Computer Graphic, Virtual Reality and Simulation, U-Tad
-
-## Tiny Zombies
+![image](https://github.com/sagzain/unity-project/blob/a93c411436387f22e5eb3b9c08cde39d8a419dea/Tiny%20Zombies/Recordings/image_002_0024.jpg)
 
 Tiny Zombies is a project developed using Unity. It is about surviving a horde of attacking zombies as long as possible while you are trapped inside a park.
 The only weapon you have with you to take down zombies: a revolver.
@@ -20,7 +17,9 @@ The user interface shows us the amount of damage we can receive before game is o
 
 ## Author & Acknowledgment
 
-Samuel González Linde
+**Samuel González Linde**
+
+Game project made with Unity & C# - Advanced Programming - Master's Degree on Computer Graphic, Virtual Reality and Simulation, U-Tad.
 
 Every asset has been downloaded from the Unity Asset Store, so all the credit for the visual and music part goes to their respectives authors:
 
