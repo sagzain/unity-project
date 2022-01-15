@@ -1,4 +1,7 @@
-![image](https://github.com/sagzain/unity-project/blob/a93c411436387f22e5eb3b9c08cde39d8a419dea/Tiny%20Zombies/Recordings/image_002_0024.jpg)
+<!-- ![image](https://github.com/sagzain/unity-project/blob/a93c411436387f22e5eb3b9c08cde39d8a419dea/Tiny%20Zombies/Recordings/image_002_0024.jpg) -->
+<p align="center">
+  <img src="Tiny%20Zombies/Recordings/image_002_0024.jpg" alt="drawing" style="width:700px;"/>
+</p>
 
 Tiny Zombies is a project developed using Unity. It is about surviving a horde of attacking zombies as long as possible while you are trapped inside a park.
 The only weapon you have with you to take down zombies: a revolver.
